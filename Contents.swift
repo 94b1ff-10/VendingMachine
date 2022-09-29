@@ -1,49 +1,34 @@
 import UIKit
-
-
+//設計図
 class VirtualVendingMachine {
-
+    
+//使用する対象まとめ
     enum DrinkType {
         case coffee
         case water
         case monster
-        
-        var price: Int {
-            switch self {
-            case .coffee: return 120
-            case .water: return 100
-            case .monster: return 210
-            }
-        }
-    }
-    
-    struct DrinkModel {
-        var type: DrinkType
-        var stock: Int
-    }
-    
-    enum YenType: Int {
-            case IYen = 1
-            case VYen = 5
-            case XYen = 10
-            case LYen = 50
-            case CYen = 100
-            case DYen = 500
-            case MYen = 1000
     }
 
+    enum YenType: Int {
+        case XYen = 10
+        case LYen = 50
+        case CYen = 100
+        case DYen = 500
+        case MYen = 1000
+    }
+    
     var inputedYen: Int = 0
     var availableBalance: Int = 1000
     
     var coffeePrice: Int = 120
     var waterPrice: Int = 100
     var monsterPrice: Int = 210
-
+    
     var coffeeStock: Int = 1
     var waterStock: Int = 15
     var monsterStock: Int = 5
 
-
+//購入処理
     func buyDrink(type: DrinkType, inputedYen: Int) -> Bool {
         self.inputedYen = inputedYen
         
@@ -85,7 +70,18 @@ class VirtualVendingMachine {
         
         return isBuyable
     }
-
+    
+//購入処理で使う機能 (入力された硬貨の種類と数を判別する)
+    func checkYen(type: YenType, count: Int) -> Int {
+        switch type {
+        case .XYen: return YenType.XYen.rawValue * count
+        case .LYen: return YenType.LYen.rawValue * count
+        case .CYen: return YenType.CYen.rawValue * count
+        case .DYen: return YenType.DYen.rawValue * count
+        case .MYen: return YenType.MYen.rawValue * count
+        }
+    }
+    
 //購入処理で使う機能 (在庫を1つ減らす)
     func reduceStock(type: DrinkType) {
         switch type {
@@ -126,3 +122,6 @@ print(buyingCoffee2)
 print("Change is ¥\(virtualVendingMachine.inputedYen).")
 print("coffee stock is \(virtualVendingMachine.coffeeStock).")
 print("AvailableBalance is ¥\(virtualVendingMachine.availableBalance).")
+
+let test = virtualVendingMachine.checkYen(type: .LYen, count: 3)
+print(test)
