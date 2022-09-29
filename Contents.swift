@@ -8,14 +8,6 @@ class VirtualVendingMachine {
         case water
         case monster
     }
-
-    enum YenType: Int {
-        case XYen = 10
-        case LYen = 50
-        case CYen = 100
-        case DYen = 500
-        case MYen = 1000
-    }
     
     var inputedYen: Int = 0
     var availableBalance: Int = 1000
@@ -71,17 +63,6 @@ class VirtualVendingMachine {
         return isBuyable
     }
     
-//購入処理で使う機能 (入力された硬貨の種類と数を判別する)
-    func checkYen(type: YenType, count: Int) -> Int {
-        switch type {
-        case .XYen: return YenType.XYen.rawValue * count
-        case .LYen: return YenType.LYen.rawValue * count
-        case .CYen: return YenType.CYen.rawValue * count
-        case .DYen: return YenType.DYen.rawValue * count
-        case .MYen: return YenType.MYen.rawValue * count
-        }
-    }
-    
 //購入処理で使う機能 (在庫を1つ減らす)
     func reduceStock(type: DrinkType) {
         switch type {
@@ -122,6 +103,3 @@ print(buyingCoffee2)
 print("Change is ¥\(virtualVendingMachine.inputedYen).")
 print("coffee stock is \(virtualVendingMachine.coffeeStock).")
 print("AvailableBalance is ¥\(virtualVendingMachine.availableBalance).")
-
-let test = virtualVendingMachine.checkYen(type: .LYen, count: 3)
-print(test)
